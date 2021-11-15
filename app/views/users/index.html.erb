@@ -1,0 +1,87 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Date of Birth</th>
+      <th>Mobile number</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Pancard number</th>
+      <th>Aadhar number</th>
+      <th>Bank account nmuber</th>
+      <th>Bank account ifsc</th>
+      <th>Monthly recurring inflow</th>
+      <th>Monthly recurring outflow</th>
+      <th>Maximum Possible EMI</th>
+      <th>Credit Limit</th>
+      <th>Credit Score</th>
+      <th>System Recommendation</th>
+      <th>Edit</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.dob %></td>
+        <td><%= user.mobile_number %></td>
+        <td><%= user.address %></td>
+        <td><%= user.email %></td>
+        <td><%= user.pancard_number %></td>
+        <td><%= user.aadhar_number %></td>
+        <td><%= user.bank_account_nmuber %></td>
+        <td><%= user.bank_account_ifsc %></td>
+        <td><%= user.monthly_recurring_inflow %></td>
+        <td><%= user.monthly_recurring_outflow %></td>
+        <td><%= user.maximum_possible_emi = (user.monthly_recurring_inflow/2)- user.monthly_recurring_outflow%></td>
+        <% if user.maximum_possible_emi>0 && user.maximum_possible_emi<=5000 %>
+          <%@term_in_months = 6%>
+        <% elsif user.maximum_possible_emi>=5001 && user.maximum_possible_emi<=10000 %>
+          <%@term_in_months = 12%>
+        <% elsif user.maximum_possible_emi>=10001 && user.maximum_possible_emi<=20000 %>
+          <%@term_in_months = 18%>
+        <% else user.maximum_possible_emi>20000 %>
+          <%@term_in_months = 24%>
+        <% end %>  
+        <td><%= user.credit_limit = user.maximum_possible_emi*@term_in_months %></td>
+        <% if user.credit_limit>0 and user.credit_limit<=2000  || user.credit_limit>=6000 && user.credit_limit<7000 || user.credit_limit>=10001 && user.credit_limit<11000%>
+          <% user.credit_score = rand(300..549)%>
+        <% elsif user.credit_limit>=2001 && user.credit_limit<=5000 || user.credit_limit>=7000 && user.credit_limit<=10000 || user.credit_limit>=11001 && user.credit_limit<12000%>
+          <% user.credit_score = rand(550..649)%>
+        <% elsif user.credit_limit>=12001 && user.credit_limit<20000%>
+          <% user.credit_score =rand(650..749) %>
+        <% else user.credit_limit>=20000%>
+          <% user.credit_score= rand(750..900)%>
+        <% end %>
+        <td><%= user.credit_score %></td>
+
+        <% if user.credit_score>300 && user.credit_score<=549%>
+          <% user.sys_recom = "REJECTED"%>
+        <% elsif user.credit_score>550 && user.credit_score<=649%>
+          <% user.sys_recom = "ADMIN APPROVAL"%>
+        <% elsif user.credit_score>650 && user.credit_score<=749%>
+          <% user.sys_recom ="ADMIN APPROVAL"%>
+        <% else user.credit_score>750 && user.credit_score<=900%>
+          <% user.sys_recom = "ACCEPTED"%>
+        <% end%>
+        <td><%= user.sys_recom %></td>
+
+        <!-- <td><%#= link_to 'Show', user %></td> -->
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>

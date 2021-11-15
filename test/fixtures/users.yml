@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  dob: MyString
+  mobile_number: 1
+  address: MyString
+  email: MyString
+  pancard_number: MyString
+  aadhar_number: MyString
+  bank_account_nmuber: MyString
+  bank_account_ifsc: MyString
+  monthly_recurring_inflow: 1.5
+  monthly_recurring_outflow: 1.5
+
+two:
+  first_name: MyString
+  last_name: MyString
+  dob: MyString
+  mobile_number: 1
+  address: MyString
+  email: MyString
+  pancard_number: MyString
+  aadhar_number: MyString
+  bank_account_nmuber: MyString
+  bank_account_ifsc: MyString
+  monthly_recurring_inflow: 1.5
+  monthly_recurring_outflow: 1.5
